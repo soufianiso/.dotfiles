@@ -246,7 +246,7 @@ vim.keymap.set("n", "<leader>i", ":PlugInstall<CR>", {silent=true})
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 vim.keymap.set("n", "<leader><leader>", function() vim.cmd("so") end)
 vim.keymap.set("n", "<leader>z", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
-vim.keymap.set("n", "<C-p>", "<cmd>Telescope find_files<cr>")
+vim.api.nvim_set_keymap("n", "<C-p>", ':lua require"telescope.builtin".find_files({hidden = true})<CR>',{noremap = true, silent = true})
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set({ 'i' }, '<C-y>', '<Nop>', { silent = true })
 END
