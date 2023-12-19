@@ -1,0 +1,3 @@
+#/usr/bin/bash
+mpv $(find ~/videos/ -name '*.mp4' | dmenu -p "Search: ")
+
