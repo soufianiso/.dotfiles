@@ -1,4 +1,4 @@
-" Plugins:
+" Plugins
 call plug#begin()
 Plug 'https://github.com/tpope/vim-sleuth'
 Plug 'https://github.com/lukas-reineke/indent-blankline.nvim'
@@ -9,9 +9,10 @@ Plug 'https://github.com/debugloop/telescope-undo.nvim'
 Plug 'https://github.com/anuvyklack/pretty-fold.nvim'
 Plug 'https://github.com/machakann/vim-highlightedyank'
 Plug 'https://github.com/navarasu/onedark.nvim'
-Plug 'https://github.com/catppuccin/vim', { 'as': 'catppuccin' }
+Plug 'https://github.com/catppuccin/nvim', { 'as': 'catppuccin' }
 Plug 'https://github.com/ThePrimeagen/harpoon'
 Plug 'https://github.com/nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'https://github.com/nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'https://github.com/williamboman/mason.nvim'
 Plug 'https://github.com/williamboman/mason-lspconfig.nvim'
 Plug 'https://github.com/neovim/nvim-lspconfig'
@@ -52,6 +53,7 @@ set clipboard=unnamedplus
 set cursorline
 
 "
+colorscheme catppuccin-macchiato " catppuccin-latte, catppuccin-frappe, catppuccin-macchiato, catppuccin-mocha
 " Some Mappings:
 
 let mapleader = " "
@@ -82,7 +84,7 @@ nmap <silent> <c-l> :wincmd l<CR>
 
 nmap <leader>u <cmd>Telescope undo<CR>
 nmap <leader>g <cmd>Telescope live_grep<CR>
-colorscheme gruvbox
+" colorscheme gruvbox
 
 " LUA CONFIG
 lua << END
@@ -168,69 +170,79 @@ cmp.setup({
 
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all" (the five listed parsers should always be installed)
-  ensure_installed = {"bash","rust" ,"go", "python", "c", "lua", "vim", "vimdoc", "query" },
-  sync_install = false,
-  auto_install = true,
-  indent = { enable = true},
-  ignore_install = { "javascript" },
-  highlight = {
-    enable = false,
+	ensure_installed = {"bash","rust" ,"go", "python", "c", "lua", "vim", "vimdoc", "query" },
+	sync_install = false,
+	 auto_install = true,
+	 indent = { enable = true},
+	 ignore_install = { "javascript" },
+	incremental_selection = {
+		enable = true,
+		keymaps = {
+			init_selection = "<C-Space>",
+			node_incremental = "<C-Space>",
+			scope_incremental = "<C-s>",
+			node_decremental = "<C-x>",
+		},
+	},
 
-    disable = function(lang, buf)
-        local max_filesize = 100 * 1024 -- 100 KB
-        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-        if ok and stats and stats.size > max_filesize then
-            return true
-        end
-    end,
+    highlight = {
+        enable = true,
+        },
+
+  textobjects = {
+    select = {
+      enable = true,
+      lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+      keymaps = {
+        -- You can use the capture groups defined in textobjects.scm
+        ['aa'] = '@parameter.outer',
+        ['ia'] = '@parameter.inner',
+        ['af'] = '@function.outer',
+        ['if'] = '@function.inner',
+        ['ac'] = '@class.outer',
+        ['ic'] = '@class.inner',
+        ['ii'] = '@conditional.inner',
+        ['ai'] = '@conditional.outer',
+        ['il'] = '@loop.inner',
+        ['al'] = '@loop.outer',
+        ['at'] = '@comment.outer',
+      },
+    },
+    move = {
+      enable = true,
+      set_jumps = true, -- whether to set jumps in the jumplist
+      goto_next_start = {
+        [']m'] = '@function.outer',
+        [']]'] = '@class.outer',
+      },
+      goto_next_end = {
+        [']M'] = '@function.outer',
+        [']['] = '@class.outer',
+      },
+      goto_previous_start = {
+        ['[m'] = '@function.outer',
+        ['[['] = '@class.outer',
+      },
+      goto_previous_end = {
+        ['[M'] = '@function.outer',
+        ['[]'] = '@class.outer',
+      },
+      goto_next = {
+        [']i'] = "@conditional.inner",
+      },
+      goto_previous = {
+        ['[i'] = "@conditional.inner",
+      }
+    },
+    
   },
+
 }
 
-require('onedark').setup{
-	-- Lua
-require('onedark').setup{
-    -- Main options --
-	priority = 1000,
-    style = 'warmer', -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
-    transparent = false,  -- Show/hide background
-    term_colors = false, -- Change terminal color as per the selected theme style
-    ending_tildes = false, -- Show the end-of-buffer tildes. By default they are hidden
-    cmp_itemkind_reverse = false, -- reverse item kind highlights in cmp menu
-
-    -- toggle theme style ---
-    toggle_style_key = "<leader>ts", -- keybind to toggle theme style. Leave it nil to disable it, or set it to a string, for example "<leader>ts"
-    toggle_style_list = {'dark', 'darker', 'cool', 'deep', 'warm', 'warmer', 'light'}, -- List of styles to toggle between
-
-    -- Change code style ---
-    -- Options are italic, bold, underline, none
-    -- You can configure multiple style with comma separated, For e.g., keywords = 'italic,bold'
-    code_style = {
-        comments = 'italic',
-        keywords = 'none',
-        functions = 'bold',
-        strings = 'none',
-        variables = 'none'
-    },
-
-    -- Lualine options --
-    lualine = {
-        transparent = false, -- lualine center bar transparency
-    },
-
-    -- Custom Highlights --
-    colors = {}, -- Override default colors
-    highlights = {}, -- Override highlight groups
-
-    -- Plugins Config --
-    diagnostics = {
-        darker = true, -- darker colors for diagnostic
-        undercurl = true,   -- use undercurl instead of underline for diagnostics
-        background = true,    -- use background color for virtual text
-    },
 }
-}
--- require('onedark').load()
--- require("ibl").setup()
+
+-- [indent-blankline Configuration]
+require("ibl").setup()
 --mapping: -------
 vim.o.completeopt = 'menuone,noselect'
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
