@@ -45,7 +45,7 @@ set number
 set relativenumber
 let g:highlightedyank_highlight_duration = 200 
 set tabstop=4
-set foldmethod=marker
+set shiftwidth=4
 set clipboard=unnamedplus
 set termguicolors
 set clipboard=unnamedplus
@@ -171,6 +171,7 @@ require'nvim-treesitter.configs'.setup {
   ensure_installed = {"bash","rust" ,"go", "python", "c", "lua", "vim", "vimdoc", "query" },
   sync_install = false,
   auto_install = true,
+  indent = { enable = true},
   ignore_install = { "javascript" },
   highlight = {
     enable = false,
@@ -229,7 +230,7 @@ require('onedark').setup{
 }
 }
 -- require('onedark').load()
-require("ibl").setup()
+-- require("ibl").setup()
 --mapping: -------
 vim.o.completeopt = 'menuone,noselect'
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
