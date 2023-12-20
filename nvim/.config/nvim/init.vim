@@ -107,7 +107,6 @@ require('lualine').setup {
   },
 }
 
-
 -- [LSP Configuration]
 local lsp_zero = require('lsp-zero')
 lsp_zero.on_attach(function(client, bufnr)
@@ -186,7 +185,7 @@ require'nvim-treesitter.configs'.setup {
 	},
 
     highlight = {
-        enable = true,
+        enable = true
         },
 
   textobjects = {
@@ -239,7 +238,6 @@ require'nvim-treesitter.configs'.setup {
 
 }
 
-}
 
 -- [indent-blankline Configuration]
 require("ibl").setup()
@@ -262,4 +260,5 @@ vim.keymap.set("n", "<leader>z", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 vim.api.nvim_set_keymap("n", "<C-p>", ':lua require"telescope.builtin".find_files({hidden = true})<CR>',{noremap = true, silent = true})
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set({ 'i' }, '<C-y>', '<Nop>', { silent = true })
+
 END
