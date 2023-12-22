@@ -31,7 +31,7 @@ Plug 'https://github.com/mhinz/vim-signify'
 Plug 'https://github.com/jamespwilliams/bat.vim'
 Plug 'https://github.com/tpope/vim-commentary'
 Plug 'https://github.com/ryanoasis/vim-devicons'
-Plug 'https://github.com/morhetz/gruvbox'
+Plug 'https://github.com/eddyekofo94/gruvbox-flat.nvim'
 Plug 'https://github.com/scrooloose/nerdtree-project-plugin'
 Plug 'https://github.com/nvim-lua/plenary.nvim'
 Plug 'https://github.com/nvim-telescope/telescope.nvim'
@@ -51,11 +51,6 @@ set clipboard=unnamedplus
 set termguicolors
 set clipboard=unnamedplus
 set cursorline
-
-"
-colorscheme catppuccin-macchiato " catppuccin-latte, catppuccin-frappe, catppuccin-macchiato, catppuccin-mocha
-" Some Mappings:
-
 let mapleader = " "
 map      <leader>' ysiw'<CR>
 map      <leader>" ysiw"<CR>
@@ -84,12 +79,20 @@ nmap <silent> <c-l> :wincmd l<CR>
 
 nmap <leader>u <cmd>Telescope undo<CR>
 nmap <leader>g <cmd>Telescope live_grep<CR>
-" colorscheme gruvbox
+
+
+" colorscheme catppuccin-mocha " catppuccin-latte, catppuccin-frappe, catppuccin-macchiato, catppuccin-mocha
+
+" Some Mappings:
 
 " LUA CONFIG
 lua << END
-
--- LuaLine Plugin
+vim.g.gruvbox_telescope = false 
+vim.g.gruvbox_flat_style = "hard"
+vim.g.gruvbox_italic_comments = false
+vim.g.gruvbox_italic_keywords = false
+vim.cmd[[colorscheme gruvbox-flat]]
+-- LuaLine Plugin:
 require('lualine').setup {
   options = {
     icons_enabled = false,
@@ -99,8 +102,8 @@ require('lualine').setup {
   },
   sections = {
     lualine_a = {''},
-    lualine_b = {'', '', 'filename'},
-    lualine_c = {''},
+    lualine_b = {'', '', ''},
+    lualine_c = {'filename'},
     lualine_x = {'', '', 'filetype'},
     lualine_y = {'progress'},
     lualine_z = {''}
@@ -135,6 +138,7 @@ require('mason-lspconfig').setup({
     end,
   }
 })
+
 
 
 -- [Autocompletion configuration]
@@ -193,19 +197,28 @@ require'nvim-treesitter.configs'.setup {
       enable = true,
       lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
       keymaps = {
-        -- You can use the capture groups defined in textobjects.scm
-        ['aa'] = '@parameter.outer',
-        ['ia'] = '@parameter.inner',
-        ['af'] = '@function.outer',
-        ['if'] = '@function.inner',
-        ['ac'] = '@class.outer',
-        ['ic'] = '@class.inner',
-        ['ii'] = '@conditional.inner',
-        ['ai'] = '@conditional.outer',
-        ['il'] = '@loop.inner',
-        ['al'] = '@loop.outer',
-        ['at'] = '@comment.outer',
+                   ["a="] = { query = "@assignment.outer", desc = "Select outer part of an assignment" },
+            ["i="] = { query = "@assignment.inner", desc = "Select inner part of an assignment" },
+            ["l="] = { query = "@assignment.lhs", desc = "Select left hand side of an assignment" },
+            ["r="] = { query = "@assignment.rhs", desc = "Select right hand side of an assignment" },
+
+            ["aa"] = { query = "@parameter.outer", desc = "Select outer part of a parameter/argument" },
+            ["ia"] = { query = "@parameter.inner", desc = "Select inner part of a parameter/argument" },
+
+            ["ai"] = { query = "@conditional.outer", desc = "Select outer part of a conditional" },
+            ["ii"] = { query = "@conditional.inner", desc = "Select inner part of a conditional" },
+
+            ["al"] = { query = "@loop.outer", desc = "Select outer part of a loop" },
+            ["il"] = { query = "@loop.inner", desc = "Select inner part of a loop" },
+
+            ["af"] = { query = "@function.outer", desc = "Select outer part of a method/function definition" },
+            ["if"] = { query = "@function.inner", desc = "Select inner part of a method/function definition" },
+
+            ["ac"] = { query = "@class.outer", desc = "Select outer part of a class" },
+            ["ic"] = { query = "@class.inner", desc = "Select inner part of a class" },-- You can use the capture groups defined in textobjects.scm
+		
       },
+		
     },
     move = {
       enable = true,
@@ -235,10 +248,21 @@ require'nvim-treesitter.configs'.setup {
     },
     
   },
-
 }
 
+local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
 
+-- vim way: ; goes to the direction you were moving.
+vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move)
+vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_opposite)
+
+-- Optionally, make builtin f, F, t, T also repeatable with ; and ,
+vim.keymap.set({ "n", "x", "o" }, "f", ts_repeat_move.builtin_f)
+vim.keymap.set({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F)
+vim.keymap.set({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t)
+vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T)
+
+	
 -- [indent-blankline Configuration]
 require("ibl").setup()
 --mapping: -------
@@ -259,6 +283,7 @@ vim.keymap.set("n", "<leader><leader>", function() vim.cmd("so") end)
 vim.keymap.set("n", "<leader>z", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.api.nvim_set_keymap("n", "<C-p>", ':lua require"telescope.builtin".find_files({hidden = true})<CR>',{noremap = true, silent = true})
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
-vim.keymap.set({ 'i' }, '<C-y>', '<Nop>', { silent = true })
+
+vim.keymap.set( 'i' , '<C-y>', '<Nop>', { silent = true })
 
 END
