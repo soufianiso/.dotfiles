@@ -1,4 +1,3 @@
-" Plugins
 call plug#begin()
 Plug 'https://github.com/tpope/vim-sleuth'
 Plug 'https://github.com/lukas-reineke/indent-blankline.nvim'
@@ -51,6 +50,7 @@ set clipboard=unnamedplus
 set termguicolors
 set clipboard=unnamedplus
 set cursorline
+set noswapfile
 let mapleader = " "
 map      <leader>' ysiw'<CR>
 map      <leader>" ysiw"<CR>
@@ -68,6 +68,7 @@ nnoremap <leader>5 <cmd>lua require("harpoon.ui").nav_file(5)<CR>
 nnoremap <leader>6 <cmd>lua require("harpoon.ui").nav_file(6)<CR>
 nnoremap <leader>a <cmd>lua require("harpoon.mark").add_file()<CR>
 nnoremap <leader>h <cmd>noh<CR>
+nnoremap <leader>b <cmd>Telescope find_files<CR>
 noremap <leader>o o<Esc>
 nnoremap <leader>O O<Esc>
 " Use ctrl-[hjkl] to select the active split!
@@ -76,7 +77,6 @@ nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
 nmap <silent> <c-h> :wincmd h<CR>
 nmap <silent> <c-l> :wincmd l<CR>
-
 
 
 " colorscheme catppuccin-mocha " catppuccin-latte, catppuccin-frappe, catppuccin-macchiato, catppuccin-mocha
@@ -112,13 +112,14 @@ require('lualine').setup {
 local lsp_zero = require('lsp-zero')
 lsp_zero.on_attach(function(client, bufnr)
   local opts = {buffer = bufnr, remap = false}
-  vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
   vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
+  vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
+  vim.keymap.set("n", "gr", function() vim.lsp.buf.references() end, opts)
   vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
   vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
   vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
   vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
-  vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
+  vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end, opts)
   vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 end)
 
@@ -280,6 +281,7 @@ vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 vim.keymap.set("n", "<leader><leader>", function() vim.cmd("so") end)
 vim.keymap.set("n", "<leader>z", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.api.nvim_set_keymap("n", "<C-p>", ":Telescope git_files<CR>",{noremap = true, silent = true})
+vim.api.nvim_set_keymap("n", "<leader>g", ":Telescope live_grep<CR>",{ silent = true})
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 vim.keymap.set( 'i' , '<C-y>', '<Nop>', { silent = true })
