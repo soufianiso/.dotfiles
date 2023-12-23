@@ -31,7 +31,7 @@ exec xrandr --output LVDS --brightness 1 --gamma 1.0:0.95:0.8
 # and nm-applet is a desktop environment-independent system tray GUI for it.
 exec --no-startup-id nm-applet
 # Compton
-# exec --no-startup-id compton
+exec --no-startup-id compton
 
 
 # Use pactl to adjust volume in PulseAudio.
@@ -230,6 +230,7 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 exec alacritty
 exec xx.sh
+exec flameshot 
 bindsym $mod+Shift+period exec systemctl suspend
 bindsym $mod+Shift+b exec xx.sh 
 

@@ -77,8 +77,6 @@ nmap <silent> <c-j> :wincmd j<CR>
 nmap <silent> <c-h> :wincmd h<CR>
 nmap <silent> <c-l> :wincmd l<CR>
 
-nmap <leader>u <cmd>Telescope undo<CR>
-nmap <leader>g <cmd>Telescope live_grep<CR>
 
 
 " colorscheme catppuccin-mocha " catppuccin-latte, catppuccin-frappe, catppuccin-macchiato, catppuccin-mocha
@@ -281,7 +279,7 @@ vim.keymap.set("n", "<leader>i", ":PlugInstall<CR>", {silent=true})
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 vim.keymap.set("n", "<leader><leader>", function() vim.cmd("so") end)
 vim.keymap.set("n", "<leader>z", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
-vim.api.nvim_set_keymap("n", "<C-p>", ':lua require"telescope.builtin".find_files({hidden = true})<CR>',{noremap = true, silent = true})
+vim.api.nvim_set_keymap("n", "<C-p>", ":Telescope git_files<CR>",{noremap = true, silent = true})
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 vim.keymap.set( 'i' , '<C-y>', '<Nop>', { silent = true })
