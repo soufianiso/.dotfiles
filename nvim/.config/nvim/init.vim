@@ -1,4 +1,5 @@
 call plug#begin()
+Plug 'https://github.com/ThePrimeagen/git-worktree.nvim'
 Plug 'https://github.com/tpope/vim-sleuth'
 Plug 'https://github.com/lukas-reineke/indent-blankline.nvim'
 Plug 'https://github.com/rafamadriz/friendly-snippets'
@@ -91,8 +92,8 @@ require('lualine').setup {
   },
   sections = {
     lualine_a = {''},
-    lualine_b = {'', '', ''},
     lualine_c = {'filename'},
+	lualine_b = {'branch', 'diff', ''},
     lualine_x = {'', '', 'filetype'},
     lualine_y = {'progress'},
     lualine_z = {''}
@@ -129,7 +130,7 @@ require('mason-lspconfig').setup({
   }
 })
 
-
+require("telescope").load_extension("git_worktree")
 
 -- [Autocompletion configuration]
 local cmp = require('cmp')
@@ -239,7 +240,6 @@ require'nvim-treesitter.configs'.setup {
     
   },
 }
-
 local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
 
 -- vim way: ; goes to the direction you were moving.
@@ -279,18 +279,24 @@ vim.keymap.set( 'i' , '<C-y>', '<Nop>', { silent = true })
 -- harpoon Configuration
 local mark = require("harpoon.mark")
 local ui = require("harpoon.ui")
-vim.keymap.set("n", "<leader>a", mark.add_file)
-vim.keymap.set("n", "<leader>p", ui.toggle_quick_menu)
-vim.keymap.set("n", "<leader>1", function() ui.nav_file(1) end)
-vim.keymap.set("n", "<leader>2", function() ui.nav_file(2) end)
-vim.keymap.set("n", "<leader>3", function() ui.nav_file(3) end)
-vim.keymap.set("n", "<leader>4", function() ui.nav_file(4) end)
+	vim.keymap.set("n", "<leader>a", mark.add_file)
+	vim.keymap.set("n", "<leader>p", ui.toggle_quick_menu)
+	vim.keymap.set("n", "<leader>1", function() ui.nav_file(1) end)
+	vim.keymap.set("n", "<leader>2", function() ui.nav_file(2) end)
+	vim.keymap.set("n", "<leader>3", function() ui.nav_file(3) end)
+	vim.keymap.set("n", "<leader>4", function() ui.nav_file(4) end)
+
+-- worktree Configuration--
+vim.keymap.set('n', '<leader>gw',':Telescope git_worktree<cr>' , {})
+vim.keymap.set('n', '<leader>gc',":lua require('telescope').extensions.git_worktree.create_git_worktree()<cr>" , {})
 
 -- telescope Configuration
 local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>sf', builtin.find_files, {})
-vim.keymap.set('n', '<C-p>', builtin.git_files, {})
-vim.keymap.set('n', '<leader>sg', function()
-	builtin.grep_string({ search = vim.fn.input("Grep > ") })
+	vim.keymap.set('n', '<leader>sf', builtin.find_files, {})
+	vim.keymap.set('n', '<C-p>', builtin.git_files, {})
+	vim.keymap.set('n', '<leader>sg', function() builtin.grep_string({ search = vim.fn.input("Grep > ") })
 end)
+
+
+
 END
