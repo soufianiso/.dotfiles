@@ -59,16 +59,7 @@ map      <leader>} ysiw}<CR>
 nnoremap <leader>q :q!<CR>
 nnoremap <leader>w :w<CR>
 nnoremap <c-w> <cmd>vsplit<CR>
-nnoremap <leader>p <cmd>lua require("harpoon.ui").toggle_quick_menu()<CR>
-nnoremap <leader>1 <cmd>lua require("harpoon.ui").nav_file(1)<CR>
-nnoremap <leader>2 <cmd>lua require("harpoon.ui").nav_file(2)<CR>
-nnoremap <leader>3 <cmd>lua require("harpoon.ui").nav_file(3)<CR>
-nnoremap <leader>4 <cmd>lua require("harpoon.ui").nav_file(4)<CR>
-nnoremap <leader>5 <cmd>lua require("harpoon.ui").nav_file(5)<CR>
-nnoremap <leader>6 <cmd>lua require("harpoon.ui").nav_file(6)<CR>
-nnoremap <leader>a <cmd>lua require("harpoon.mark").add_file()<CR>
 nnoremap <leader>h <cmd>noh<CR>
-nnoremap <leader>b <cmd>Telescope find_files<CR>
 noremap <leader>o o<Esc>
 nnoremap <leader>O O<Esc>
 " Use ctrl-[hjkl] to select the active split!
@@ -280,10 +271,26 @@ vim.keymap.set("n", "<leader>i", ":PlugInstall<CR>", {silent=true})
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 vim.keymap.set("n", "<leader><leader>", function() vim.cmd("so") end)
 vim.keymap.set("n", "<leader>z", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
-vim.api.nvim_set_keymap("n", "<C-p>", ":Telescope git_files<CR>",{noremap = true, silent = true})
-vim.api.nvim_set_keymap("n", "<leader>g", ":Telescope live_grep<CR>",{ silent = true})
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 vim.keymap.set( 'i' , '<C-y>', '<Nop>', { silent = true })
 
+
+-- harpoon Configuration
+local mark = require("harpoon.mark")
+local ui = require("harpoon.ui")
+vim.keymap.set("n", "<leader>a", mark.add_file)
+vim.keymap.set("n", "<leader>p", ui.toggle_quick_menu)
+vim.keymap.set("n", "<leader>1", function() ui.nav_file(1) end)
+vim.keymap.set("n", "<leader>2", function() ui.nav_file(2) end)
+vim.keymap.set("n", "<leader>3", function() ui.nav_file(3) end)
+vim.keymap.set("n", "<leader>4", function() ui.nav_file(4) end)
+
+-- telescope Configuration
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>sf', builtin.find_files, {})
+vim.keymap.set('n', '<C-p>', builtin.git_files, {})
+vim.keymap.set('n', '<leader>sg', function()
+	builtin.grep_string({ search = vim.fn.input("Grep > ") })
+end)
 END
