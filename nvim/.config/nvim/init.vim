@@ -139,7 +139,10 @@ require('luasnip.loaders.from_vscode').lazy_load()
 cmp.setup({
 	 mapping = cmp.mapping.preset.insert({
 		-- `Enter` key to confirm completion
-		['<C-y>'] = cmp.mapping.confirm({select = true}),
+		['<C-y>'] = cmp.mapping.confirm {
+			  behavior = cmp.ConfirmBehavior.Replace,
+			  select = true,
+		},
 		-- Ctrl+Space to trigger completion menu
 		['<C-Space>'] = cmp.mapping.complete(),
 		-- Navigate between snippet placeholder
@@ -294,7 +297,7 @@ require("telescope").load_extension("git_worktree")
 -- telescope Configuration
 local builtin = require('telescope.builtin')
 	vim.keymap.set('n', '<leader>sf', builtin.find_files, {})
-	vim.keymap.set('n', '<C-p>', builtin.git_files, {})
+	vim.keymap.set('n', '<C-p>', builtin.git_files, {silent = true})
 	vim.keymap.set('n', '<leader>sg', function() builtin.grep_string({ search = vim.fn.input("Grep > ") })
 end)
 
