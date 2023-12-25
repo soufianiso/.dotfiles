@@ -1,43 +1,42 @@
 call plug#begin()
-Plug 'https://github.com/ThePrimeagen/git-worktree.nvim'
-Plug 'https://github.com/tpope/vim-sleuth'
-Plug 'https://github.com/lukas-reineke/indent-blankline.nvim'
-Plug 'https://github.com/rafamadriz/friendly-snippets'
-Plug 'https://github.com/L3MON4D3/LuaSnip'
-Plug 'https://github.com/nathom/tmux.nvim'
-Plug 'https://github.com/debugloop/telescope-undo.nvim'
-Plug 'https://github.com/anuvyklack/pretty-fold.nvim'
-Plug 'https://github.com/machakann/vim-highlightedyank'
-Plug 'https://github.com/navarasu/onedark.nvim'
-Plug 'https://github.com/catppuccin/nvim', { 'as': 'catppuccin' }
-Plug 'https://github.com/ThePrimeagen/harpoon'
-Plug 'https://github.com/nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'https://github.com/nvim-treesitter/nvim-treesitter-textobjects'
-Plug 'https://github.com/williamboman/mason.nvim'
-Plug 'https://github.com/williamboman/mason-lspconfig.nvim'
-Plug 'https://github.com/neovim/nvim-lspconfig'
-Plug 'https://github.com/hrsh7th/nvim-cmp'
-Plug 'https://github.com/hrsh7th/cmp-buffer'
-Plug 'https://github.com/hrsh7th/cmp-path'
-Plug 'https://github.com/hrsh7th/cmp-nvim-lsp'
-Plug 'https://github.com/hrsh7th/cmp-nvim-lua'
-Plug 'https://github.com/saadparwaiz1/cmp_luasnip'
-Plug 'https://github.com/VonHeikemen/lsp-zero.nvim', {'branch': 'v3.x'}
-Plug 'https://github.com/nvim-lualine/lualine.nvim'
-Plug 'https://github.com/tpope/vim-fugitive'
-Plug 'https://github.com/tpope/vim-surround'
-Plug 'https://github.com/tpope/vim-repeat'
-Plug 'https://github.com/mhinz/vim-signify'
-Plug 'https://github.com/jamespwilliams/bat.vim'
-Plug 'https://github.com/tpope/vim-commentary'
-Plug 'https://github.com/ryanoasis/vim-devicons'
-Plug 'https://github.com/eddyekofo94/gruvbox-flat.nvim'
-Plug 'https://github.com/scrooloose/nerdtree-project-plugin'
-Plug 'https://github.com/nvim-lua/plenary.nvim'
-Plug 'https://github.com/nvim-telescope/telescope.nvim'
-Plug 'https://github.com/sharkdp/bat'
-Plug 'https://github.com/sonph/onehalf'
-Plug 'https://github.com/mattn/emmet-vim.git'
+Plug 'folke/zen-mode.nvim',
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'ThePrimeagen/git-worktree.nvim'
+Plug 'tpope/vim-sleuth'
+Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'rafamadriz/friendly-snippets'
+Plug 'L3MON4D3/LuaSnip'
+Plug 'nathom/tmux.nvim'
+Plug 'debugloop/telescope-undo.nvim'
+Plug 'anuvyklack/pretty-fold.nvim'
+Plug 'machakann/vim-highlightedyank'
+Plug 'navarasu/onedark.nvim'
+Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
+Plug 'ThePrimeagen/harpoon'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-nvim-lua'
+Plug 'saadparwaiz1/cmp_luasnip'
+Plug 'VonHeikemen/lsp-zero.nvim', {'branch': 'v3.x'}
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+" Plug 'mhinz/vim-signify'
+Plug 'jamespwilliams/bat.vim'
+Plug 'tpope/vim-commentary'
+Plug 'ryanoasis/vim-devicons'
+Plug 'eddyekofo94/gruvbox-flat.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'sonph/onehalf'
 call plug#end()
 
 " Some Settings:
@@ -56,6 +55,7 @@ let mapleader = " "
 map      <leader>' ysiw'<CR>
 map      <leader>" ysiw"<CR>
 map      <leader>) ysiw)<CR>
+map <c-f> <Nop>
 map      <leader>} ysiw}<CR>
 nnoremap <leader>q :q!<CR>
 nnoremap <leader>w :w<CR>
@@ -93,8 +93,8 @@ require('lualine').setup {
   sections = {
     lualine_a = {''},
     lualine_c = {'filename'},
-	lualine_b = {'branch', 'diff', ''},
-    lualine_x = {'', '', 'filetype'},
+    lualine_b = {'', '', ''},
+    lualine_x = {'branch', 'diff', 'filetype'},
     lualine_y = {'progress'},
     lualine_z = {''}
   },
@@ -130,7 +130,6 @@ require('mason-lspconfig').setup({
   }
 })
 
-require("telescope").load_extension("git_worktree")
 
 -- [Autocompletion configuration]
 local cmp = require('cmp')
@@ -269,8 +268,8 @@ vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("n", "<leader>i", ":PlugInstall<CR>", {silent=true})
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
-vim.keymap.set("n", "<leader><leader>", function() vim.cmd("so") end)
-vim.keymap.set("n", "<leader>z", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set("n", "<leader><leader>", function() vim.cmd("so%") end)
+vim.keymap.set("n", "<leader>S", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 vim.keymap.set( 'i' , '<C-y>', '<Nop>', { silent = true })
@@ -289,12 +288,31 @@ local ui = require("harpoon.ui")
 -- worktree Configuration--
 vim.keymap.set('n', '<leader>gw',':Telescope git_worktree<cr>' , {})
 vim.keymap.set('n', '<leader>gc',":lua require('telescope').extensions.git_worktree.create_git_worktree()<cr>" , {})
+require("telescope").load_extension('fzf')
+require("telescope").load_extension("git_worktree")
 
 -- telescope Configuration
 local builtin = require('telescope.builtin')
 	vim.keymap.set('n', '<leader>sf', builtin.find_files, {})
 	vim.keymap.set('n', '<C-p>', builtin.git_files, {})
 	vim.keymap.set('n', '<leader>sg', function() builtin.grep_string({ search = vim.fn.input("Grep > ") })
+end)
+
+vim.keymap.set("n", "<leader>zz", function()
+    require("zen-mode").setup {
+        window = {
+            width = 130,
+            options = {}
+        },
+		plugins = {
+		      tmux = {enabled = true}
+
+		}
+    }
+    require("zen-mode").toggle()
+    vim.wo.wrap = false
+    vim.wo.number = true
+    vim.wo.rnu = true
 end)
 
 
