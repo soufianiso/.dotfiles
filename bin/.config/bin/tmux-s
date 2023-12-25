@@ -32,7 +32,7 @@ fi
 
 if [ "$selected_name" = "_dotfiles" ]; then
 	tmux new-session -ds $selected_name -c $selected
-	tmux send-keys -t $selected_name 'nvim .' Enter
+	tmux send-keys -t $selected_name 'nvim -c "Telescope git_files"' Enter
 fi
 
 
