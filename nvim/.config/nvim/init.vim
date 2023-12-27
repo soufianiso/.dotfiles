@@ -1,4 +1,5 @@
 call plug#begin()
+Plug 'j-hui/fidget.nvim',
 Plug 'folke/zen-mode.nvim',
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'ThePrimeagen/git-worktree.nvim'
@@ -92,14 +93,16 @@ require('lualine').setup {
   },
   sections = {
     lualine_a = {''},
-    lualine_c = {'filename'},
+	lualine_c = {{'filename',path=1}},
     lualine_b = {'', '', ''},
     lualine_x = {'branch', 'diff', 'filetype'},
     lualine_y = {'progress'},
     lualine_z = {''}
   },
 }
-
+require("fidget").setup {
+  -- options
+}
 -- [LSP Configuration]
 local lsp_zero = require('lsp-zero')
 lsp_zero.on_attach(function(client, bufnr)
