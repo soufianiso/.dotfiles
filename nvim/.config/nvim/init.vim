@@ -1,23 +1,26 @@
 call plug#begin()
+Plug 'm4xshen/autoclose.nvim'
 Plug 'j-hui/fidget.nvim',
 Plug 'folke/zen-mode.nvim',
+Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'debugloop/telescope-undo.nvim'
+Plug 'ThePrimeagen/harpoon'
 Plug 'ThePrimeagen/git-worktree.nvim'
-Plug 'tpope/vim-sleuth'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'rafamadriz/friendly-snippets'
 Plug 'L3MON4D3/LuaSnip'
 Plug 'nathom/tmux.nvim'
-Plug 'debugloop/telescope-undo.nvim'
 Plug 'anuvyklack/pretty-fold.nvim'
 Plug 'machakann/vim-highlightedyank'
 Plug 'navarasu/onedark.nvim'
+Plug 'eddyekofo94/gruvbox-flat.nvim'
 Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
-Plug 'ThePrimeagen/harpoon'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
+Plug 'VonHeikemen/lsp-zero.nvim', {'branch': 'v3.x'}
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-buffer'
@@ -25,18 +28,13 @@ Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-nvim-lua'
 Plug 'saadparwaiz1/cmp_luasnip'
-Plug 'VonHeikemen/lsp-zero.nvim', {'branch': 'v3.x'}
 Plug 'nvim-lualine/lualine.nvim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
-" Plug 'mhinz/vim-signify'
-Plug 'jamespwilliams/bat.vim'
 Plug 'tpope/vim-commentary'
-Plug 'ryanoasis/vim-devicons'
-Plug 'eddyekofo94/gruvbox-flat.nvim'
+Plug 'tpope/vim-sleuth'
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
 Plug 'sonph/onehalf'
 call plug#end()
 
@@ -103,6 +101,15 @@ require('lualine').setup {
 require("fidget").setup {
   -- options
 }
+
+require("autoclose").setup({
+  keys = {
+      [">"] = { escape = false, close = false, pair = "<>", disabled_filetypes = {} },
+   },
+})
+
+
+
 -- [LSP Configuration]
 local lsp_zero = require('lsp-zero')
 lsp_zero.on_attach(function(client, bufnr)
@@ -277,6 +284,7 @@ vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 vim.keymap.set("n", "<leader><leader>", function() vim.cmd("so%") end)
 vim.keymap.set("n", "<leader>S", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+vim.keymap.set({"n"} , '<leader>g', ':Git<cr>', { silent = false })
 
 vim.keymap.set( 'i' , '<C-y>', '<Nop>', { silent = true })
 
