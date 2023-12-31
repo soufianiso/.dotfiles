@@ -42,7 +42,7 @@ call plug#end()
 
 set number
 set relativenumber
-let g:highlightedyank_highlight_duration = 200 
+let g:highlightedyank_highlight_duration = 100 
 set tabstop=4
 set shiftwidth=4
 set clipboard=unnamedplus
@@ -76,6 +76,10 @@ nmap <silent> <c-l> :wincmd l<CR>
 
 " LUA CONFIG
 lua << END
+vim.o.textwidth = 80
+vim.o.wrap = true
+vim.wo.signcolumn = 'yes'
+vim.o.breakindent = true
 vim.g.gruvbox_telescope = false 
 vim.g.gruvbox_flat_style = "hard"
 vim.g.gruvbox_italic_comments = false
@@ -107,6 +111,7 @@ require("autoclose").setup({
       [">"] = { escape = false, close = false, pair = "<>", disabled_filetypes = {} },
    },
 })
+
 
 
 
@@ -211,8 +216,8 @@ require'nvim-treesitter.configs'.setup {
             ["ai"] = { query = "@conditional.outer", desc = "Select outer part of a conditional" },
             ["ii"] = { query = "@conditional.inner", desc = "Select inner part of a conditional" },
 
-            ["al"] = { query = "@loop.outer", desc = "Select outer part of a loop" },
-            ["il"] = { query = "@loop.inner", desc = "Select inner part of a loop" },
+            ["ao"] = { query = "@loop.outer", desc = "Select outer part of a loop" },
+            ["io"] = { query = "@loop.inner", desc = "Select inner part of a loop" },
 
             ["af"] = { query = "@function.outer", desc = "Select outer part of a method/function definition" },
             ["if"] = { query = "@function.inner", desc = "Select inner part of a method/function definition" },
