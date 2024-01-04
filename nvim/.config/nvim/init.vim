@@ -1,8 +1,7 @@
 call plug#begin()
-Plug 'm4xshen/autoclose.nvim'
 Plug 'j-hui/fidget.nvim',
 Plug 'folke/zen-mode.nvim',
-Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope.nvim'  
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 Plug 'debugloop/telescope-undo.nvim'
 Plug 'ThePrimeagen/harpoon'
@@ -105,15 +104,6 @@ require('lualine').setup {
 require("fidget").setup {
   -- options
 }
-
-require("autoclose").setup({
-  keys = {
-      [">"] = { escape = false, close = false, pair = "<>", disabled_filetypes = {} },
-   },
-})
-
-
-
 
 -- [LSP Configuration]
 local lsp_zero = require('lsp-zero')
@@ -290,7 +280,6 @@ vim.keymap.set("n", "<leader><leader>", function() vim.cmd("so%") end)
 vim.keymap.set("n", "<leader>S", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set({"n"} , '<leader>g', ':Git<cr>', { silent = false })
-
 vim.keymap.set( 'i' , '<C-y>', '<Nop>', { silent = true })
 
 
@@ -333,7 +322,5 @@ vim.keymap.set("n", "<leader>zz", function()
     vim.wo.number = true
     vim.wo.rnu = true
 end)
-
-
 
 END
