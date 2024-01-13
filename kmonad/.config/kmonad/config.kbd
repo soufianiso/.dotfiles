@@ -1,0 +1,41 @@
+(defcfg
+  ;; For Linux
+  input  (device-file "/dev/input/by-path/platform-i8042-serio-0-event-kbd")
+  output (uinput-sink "My KMonad output")
+  ;; This option tells KMonad to let non-configured keys act normal
+  fallthrough true
+  allow-cmd true
+)
+
+(defalias
+	 ctl_f (tap-hold-next-release 200 f lctl)
+	 ctl_caps (tap-next-release esc lctl)
+	 alt_d (tap-hold-next-release 200 d lalt)
+	 sft_a (tap-hold-next-release 200 a lsft)
+	 ctl_j (tap-hold-next-release 200 j rctl)
+	 alt_k (tap-hold-next-release 200 k ralt)
+	 sft_; (tap-hold-next-release 200 ; rsft)
+	 tmux C-b
+	 sleep A-S-. 
+)
+
+(defsrc
+
+  esc  
+  1    2    3    4    5    6    7    8    9    0    -   =   bspc
+  q    w    e    r    t    y    u    i    o    p	[	]   enter 
+  caps a    s    d    f    g    h    j    k    l    ;	'	\
+  lsft z    x    c    v    b    n    m    ,    .    / rsft
+       sys   lalt           spc            ralt  sys
+)
+
+(deflayer homerowmods
+
+  @sleep 
+  1    2    3    4    5    6    7    8    9    0    -   =   sys
+  q    w    e    r    t    y    u    i    o    p	[	]   sys   
+ @ctl_caps	@sft_a    s  @alt_d    @ctl_f    g   h   @ctl_j  @alt_k   l  @sft_;   '   \
+  sys  z    x    c    v    b    n    m    ,    .    / 	sys
+	  @tmux  bspc          spc          enter    _ 
+)
+ 
