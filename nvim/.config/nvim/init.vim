@@ -1,9 +1,9 @@
 call plug#begin()
+Plug 'psliwka/vim-smoothie',
 Plug 'j-hui/fidget.nvim',
 Plug 'folke/zen-mode.nvim',
 Plug 'nvim-telescope/telescope.nvim'  
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-Plug 'debugloop/telescope-undo.nvim'
 Plug 'ThePrimeagen/harpoon'
 Plug 'ThePrimeagen/git-worktree.nvim'
 Plug 'lukas-reineke/indent-blankline.nvim'
@@ -62,15 +62,20 @@ nnoremap <leader>h <cmd>noh<CR>
 noremap <leader>o o<Esc>
 nnoremap <leader>O O<Esc>
 " Use ctrl-[hjkl] to select the active split!
-  
+nnoremap <silent> <C-D> <cmd>call smoothie#do("\<C-D>zz") <CR>
+nnoremap <silent> <C-u> <cmd>call smoothie#do("\<C-u>zz") <CR>
+vnoremap <silent> <C-D> <cmd>call smoothie#do("\<C-D>zz") <CR> 
+vnoremap <silent> <C-u> <cmd>call smoothie#do("\<C-u>zz") <CR> 
+
 nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
 nmap <silent> <c-h> :wincmd h<CR>
 nmap <silent> <c-l> :wincmd l<CR>
 
-
+" nnoremap <silent> <C-d> :call smoothie#do("\<C-D>zz0")<CR>
+" nnoremap <silent> <C-f> :call smoothie#do("\<C-f>zz0")<CR>
 " colorscheme catppuccin-mocha " catppuccin-latte, catppuccin-frappe, catppuccin-macchiato, catppuccin-mocha
-
+nnoremap <silent> <C-p> :Telescope git_files<CR>
 " Some Mappings:
 
 " LUA CONFIG
@@ -119,8 +124,6 @@ lsp_zero.on_attach(function(client, bufnr)
   vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end, opts)
   vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 end)
-
-
 
 -- [Mason configuration]
 require('mason').setup({})
@@ -270,8 +273,8 @@ vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv",{silent=true})
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv",{silent=true})
 vim.keymap.set("n", "<leader>ex", vim.cmd.Ex)
 vim.keymap.set("n", "J", "mzJ`z")
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
+--vim.keymap.set("n", "<C-d>", "<C-d>zz")
+--vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("n", "<leader>i", ":PlugInstall<CR>", {silent=true})
@@ -279,6 +282,7 @@ vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 vim.keymap.set("n", "<leader><leader>", function() vim.cmd("so%") end)
 vim.keymap.set("n", "<leader>S", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+vim.keymap.set({ 'n', 'v' }, '<C-t>', '<Nop>', { silent = true })
 vim.keymap.set({"n"} , '<leader>g', ':Git<cr>', { silent = false })
 vim.keymap.set( 'i' , '<C-y>', '<Nop>', { silent = true })
 
@@ -291,7 +295,9 @@ local ui = require("harpoon.ui")
 	vim.keymap.set("n", "<leader>1", function() ui.nav_file(1) end)
 	vim.keymap.set("n", "<leader>2", function() ui.nav_file(2) end)
 	vim.keymap.set("n", "<leader>3", function() ui.nav_file(3) end)
-	vim.keymap.set("n", "<leader>4", function() ui.nav_file(4) end)
+	vim.keymap.set("n", "<leader>4" , function() ui.nav_file(4) end)
+	vim.keymap.set("n", "<leader>5" , function() ui.nav_file(5) end)
+	vim.keymap.set("n", "<leader>6" , function() ui.nav_file(6) end)
 
 -- worktree Configuration--
 vim.keymap.set('n', '<leader>gw',':Telescope git_worktree<cr>' , {})
@@ -302,7 +308,6 @@ require("telescope").load_extension("git_worktree")
 -- telescope Configuration
 local builtin = require('telescope.builtin')
 	vim.keymap.set('n', '<leader>sf', builtin.find_files, {})
-	vim.keymap.set('n', '<C-p>', builtin.git_files, {silent = true})
 	vim.keymap.set('n', '<leader>sg', function() builtin.grep_string({ search = vim.fn.input("Grep > ") })
 end)
 

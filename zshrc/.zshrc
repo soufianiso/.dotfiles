@@ -21,12 +21,12 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
       alias grep='grep --color=auto'
       alias fgrep='fgrep --color=auto'
       alias egrep='egrep --color=auto'
-	  alias v='nvim'
 	  alias f='cd $( ls -d */| fzf )'
   fi
   eval $(thefuck --alias)
 # some more ls aliases
     alias ll='ls -alF'
+    alias v='nvim'
     alias t='tmux-s'
     alias la='ls -A'
     alias l='ls -CF'
@@ -47,3 +47,4 @@ export HISTSIZE=10000000000
 export HISTFILESIZE=100000000
 export PATH=/home/soufiane/.config/bin:$PATH
 export PATH
+
