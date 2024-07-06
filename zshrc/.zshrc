@@ -80,7 +80,9 @@ preexec() {
 setopt inc_append_history
 setopt share_history
 export HISTFILE=~/.zsh_history
-export BROWSER=w3m
+export PATH="$HOME/.tmuxifier/bin:$PATH"
+eval "$(tmuxifier init -)"
+export BROWSER=firefox
 export HISTSIZE=10000000000
 export HISTFILESIZE=100000000
 export PATH=/home/soufiane/.config/bin:$PATH

@@ -34,9 +34,10 @@ exec xrandr --output LVDS --brightness 1 --gamma 1.0:0.95:0.8
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -10% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle && $refresh_i3status
+bindsym XF86AudioRaiseVolume exec "amixer set Master -q 7%+"
+bindsym XF86AudioLowerVolume exec "amixer set Master -q 7%-"
+
+bindsym XF86AudioMute exec "amixer -q sset Master,0 toggle"
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
 # Use Mouse+$mod to drag floating windows to their wanted position
