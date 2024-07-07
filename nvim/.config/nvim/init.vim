@@ -316,14 +316,14 @@ end)
 vim.keymap.set("n", "<leader>zz", function()
     require("zen-mode").setup {
         window = {
-            width = 130,
+            width = 140,
             options = {}
         },
 		plugins = {
 		      tmux = {enabled = true},
 			alacritty = {
 			  enabled = true,
-			  font = "8", -- font size
+			  font = "10", -- font size
 			},
 				
 			  

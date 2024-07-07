@@ -8,6 +8,8 @@ LAYOUT=$(tmuxifier ls | fzf)
 
 # If a layout was selected, load it
 if [ -n "$LAYOUT" ]; then
-  tmuxifier load-session "$(basename "$LAYOUT" .session.sh)"
+  tmuxifier load-session "$(basename "$LAYOUT")"
+  tmux switch-client -t $LAYOUT
+
 fi
 

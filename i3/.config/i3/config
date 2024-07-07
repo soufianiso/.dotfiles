@@ -234,10 +234,13 @@ bindsym XF86AudioPrev exec playerctl previous
 bindsym $mod+z exec togglemouse 
 bindsym $mod+Shift+b exec xx.sh 
 
-exec alacritty
-exec nm-applet
-exec blueman-applet
-exec flameshot 
-exec thunderbird
-exec spotube
+exec alacritty &
+exec nitrogen  --restore 
+exec_always --no-startup-id picom &
+exec nm-applet &
+exec blueman-applet &
+exec flameshot &
+exec firefox &
+exec thunderbird &
+exec spotube &
 

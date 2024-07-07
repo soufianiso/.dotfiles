@@ -83,6 +83,7 @@ export HISTFILE=~/.zsh_history
 export PATH="$HOME/.tmuxifier/bin:$PATH"
 eval "$(tmuxifier init -)"
 export BROWSER=firefox
+export EDITOR=nvim
 export HISTSIZE=10000000000
 export HISTFILESIZE=100000000
 export PATH=/home/soufiane/.config/bin:$PATH
