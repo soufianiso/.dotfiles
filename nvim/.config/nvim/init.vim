@@ -307,10 +307,27 @@ require("telescope").load_extension('fzf')
 require("telescope").load_extension('harpoon')
 require("telescope").load_extension("git_worktree")
 
--- telescope Configuration
+require('telescope').setup{
+  defaults = {
+    layout_strategy = 'horizontal',
+    layout_config = {
+      prompt_position = 'top',
+      horizontal = {
+        results_width = 1,  -- Adjust this value as needed
+      },
+      height = 0.8,  -- Adjust this value as needed
+      width = 0.8,   -- Adjust this value as needed
+      preview_cutoff = 120,
+    },
+    sorting_strategy = 'ascending',
+  }
+}
+
+
+
 local builtin = require('telescope.builtin')
-	vim.keymap.set('n', '<leader>sf', builtin.find_files)
-	vim.keymap.set('n', '<leader>fw', function() builtin.grep_string({ search = vim.fn.input("Grep > ") })
+	vim.keymap.set('n', '<c-f>', builtin.find_files)
+	vim.keymap.set('n', '<c-g>', function() builtin.grep_string({ search = vim.fn.input("Grep > ") })
 end)
 
 vim.keymap.set("n", "<leader>zz", function()

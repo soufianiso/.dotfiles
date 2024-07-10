@@ -18,22 +18,83 @@
 # Below is my initial set-up. The TOML homepage (https://toml.io/en/v1.0.0) was very helpful in figuring this out. 
 # I put the file alacritty.toml in $HOME/.config/alacritty. However it can be kept anywhere among the places mentioned in
 # https://github.com/alacritty/alacritty/tree/master#configuration
-
 [window]
 
-opacity = 0.9
+opacity = 1 
 
 padding.x = 5 
 padding.y = 5 
 
 decorations = "Full"
-decorations_theme_variant = "Light" # "Dark"
+decorations_theme_variant = "Dark" # "Dark"
 
 [font]
 
 normal = { family = "RobotoMono Nerd Font", style = "Normal" }
-size = 10 
+size = 9 
 
 # Tip: for inspiration, look for values in the source code files of your favorite VS Code themes, and use the color picker in
 # Google to test colors before setting a value, or simply using an editor such as VS Code where colors are displayed in a 
 # small box when a HEX is detected by the editor.
+
+[[keyboard.bindings]]
+chars = "\u0002t"
+key = "T"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u0002x"
+key = "X"
+mods = "Control"
+
+
+[[keyboard.bindings]]
+chars = "\u0002n"
+key = "Tab"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u0002p"
+key = "Tab"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+chars = "\u0002."
+key = "."
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u0002k"
+key = "K"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u0002,"
+key = ","
+mods = "Control"
+
+
+[[keyboard.bindings]]
+chars = "\u00021"
+key = "1"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u00022"
+key = "2"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u00023"
+key = "3"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u00024"
+key = "4"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u00025"
+key = "5"
+mods = "Control"

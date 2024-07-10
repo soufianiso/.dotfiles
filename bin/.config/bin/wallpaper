@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Check if a subdirectory argument is provided
+if [ -z "$1" ]; then
+  echo "Usage: $0 <subdirectory>"
+  exit 1
+fi
+
+# Set the base directory
+BASE_DIR="/home/soufiane/wallpapers/walls/"
+SUBDIR="$1"
+
+# Construct the full path to the chosen subdirectory
+FULL_PATH="${BASE_DIR}${SUBDIR}"
+
+# Check if the chosen subdirectory exists
+if [ ! -d "$FULL_PATH" ]; then
+  echo "The directory $FULL_PATH does not exist."
+  exit 1
+fi
+
+# Execute feh with the chosen subdirectory
+echo "Setting background using wallpapers from $FULL_PATH"
+feh --bg-fill -z "$FULL_PATH"
+

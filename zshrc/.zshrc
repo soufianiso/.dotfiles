@@ -27,7 +27,7 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 # some more ls aliases
     alias ll='ls -alF'
     alias v='nvim'
-    alias t='tmux-s'
+    alias t='ss.sh'
     alias la='ls -A'
     alias l='ls -CF'
     alias songs='ytfzf -t -m --detach --thumbnail-quality=medium'
