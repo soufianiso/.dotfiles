@@ -1,6 +1,5 @@
 call plug#begin()
 Plug 'psliwka/vim-smoothie',
-Plug 'yuratomo/w3m.vim',
 Plug 'j-hui/fidget.nvim',
 Plug 'folke/zen-mode.nvim',
 Plug 'nvim-telescope/telescope.nvim'  

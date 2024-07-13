@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Define the temporary directory
+TMP_DIR="${HOME}/.trash"
+
+# Create the temporary directory if it does not exist
+mkdir -p "${TMP_DIR}"
+
+# Check if no arguments are passed
+if [ $# -eq 0 ]; then
+  echo "Usage: $0 file_or_directory [file_or_directory ...]"
+  exit 1
+fi
+
+# Move each file or directory to the temporary directory
+for item in "$@"; do
+  # Check if the file or directory exists
+  if [ -e "$item" ]; then
+    mv "$item" "${TMP_DIR}/"
+    echo "Moved $item to ${TMP_DIR}/"
+  else
+    echo "Error: $item does not exist."
+  fi
+done

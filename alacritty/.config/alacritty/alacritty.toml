@@ -21,8 +21,8 @@
 [window]
 
 opacity = 1 
-
-padding.x = 5 
+blur = true
+padding.x = 10 
 padding.y = 5 
 
 decorations = "Full"
@@ -31,7 +31,7 @@ decorations_theme_variant = "Dark" # "Dark"
 [font]
 
 normal = { family = "RobotoMono Nerd Font", style = "Normal" }
-size = 9 
+size = 8 
 
 # Tip: for inspiration, look for values in the source code files of your favorite VS Code themes, and use the color picker in
 # Google to test colors before setting a value, or simply using an editor such as VS Code where colors are displayed in a 
@@ -63,16 +63,16 @@ chars = "\u0002."
 key = "."
 mods = "Control"
 
-[[keyboard.bindings]]
-chars = "\u0002k"
-key = "K"
-mods = "Control"
 
 [[keyboard.bindings]]
 chars = "\u0002,"
 key = ","
 mods = "Control"
 
+[[keyboard.bindings]]
+chars = "\u0002k"
+key = "K"
+mods = "Control"
 
 [[keyboard.bindings]]
 chars = "\u00021"

@@ -26,10 +26,10 @@ local StreamSource = Set {
 }
 
 -- Accepts: 240, 360, 480, 720, 1080, 1440, 2160, 4320
-local changedQuality = 480
+local changedQuality = 1080 
 
 -- Affects matched and non-matched domains
-local enableVP9 = false
+local enableVP9 = true
 
 -- Do not edit from here on
 local msg = require 'mp.msg'

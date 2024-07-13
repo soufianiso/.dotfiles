@@ -88,5 +88,6 @@ export HISTSIZE=10000000000
 export HISTFILESIZE=100000000
 export PATH=/home/soufiane/.config/bin:$PATH
 export PATH
-
+export UID=$(id -u) 
+export GID=$(id -g)
 
