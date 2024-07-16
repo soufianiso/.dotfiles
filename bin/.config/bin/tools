@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-selected=$(echo $'Songs\nYoutube\nAnime\nMovies\nNotes' | fzf --height=80% --layout=reverse  --border --margin=1 --padding=1)
+selected=$(echo $'Songs\nYoutube\nAnime\nMovies\nNotes\nFkill\nRadio\nCalculator' | fzf --height=80% --layout=reverse  --border --margin=1 --padding=1)
 if [[ -z $selected ]]; then
     exit 0
 fi
@@ -18,6 +18,16 @@ fi
 
 # fi
 
+if [ "$selected" = "Calculator" ]; then
+	tmux neww -n "Calculator"  zsh -c "python3 -i"
+fi
+if [ "$selected" = "Radio" ]; then
+	tmux neww -n "Radio"  zsh -c "~/.config/bin/radio"
+fi
+
+if [ "$selected" = "Fkill" ]; then
+	tmux neww -n "Fkill"  zsh -c "~/.config/bin/fkill"
+fi
 
 if [ "$selected" = "Notes" ]; then
 	tmux neww -n "Notes"  zsh -c "~/.config/bin/notekami"
