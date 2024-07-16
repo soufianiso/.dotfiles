@@ -217,7 +217,6 @@ bindsym $mod+m bar mode toggle
 for_window [class="^.*"] border pixel 1 
 new_window 1pixel
 hide_edge_borders smart
-
 bindsym $mod+shift+x exec i3lock
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec light -A 5 
@@ -232,7 +231,7 @@ assign [class="Brave"] $ws2
 assign [class="firefox"] $ws2
 assign [class="Evince"] $ws3
 bindsym XF86TouchpadToggle exec /some/path/toggletouchpad.sh # toggle touchpad
-
+for_window [class="Firefox" title="Spotify - Web Player"] move to workspace 4
 # Assign Firefox with Spotify to workspace 3 based on the title
 
 # Media player controls
@@ -256,3 +255,4 @@ exec firefox &
 exec thunderbird &
 exec spotube &
 
+bindsym $mod+Alt+v exec ~/.vim-anywhere/bin/run

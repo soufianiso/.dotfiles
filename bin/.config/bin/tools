@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-selected=$(echo $'Songs\nYoutube\nAnime\nMovies' | fzf --height=80% --layout=reverse  --border --margin=1 --padding=1)
+selected=$(echo $'Songs\nYoutube\nAnime\nMovies\nNotes' | fzf --height=80% --layout=reverse  --border --margin=1 --padding=1)
 if [[ -z $selected ]]; then
     exit 0
 fi
@@ -17,6 +17,11 @@ fi
 #     tmux new-session -ds $selected_name 
 
 # fi
+
+
+if [ "$selected" = "Notes" ]; then
+	tmux neww -n "Notes"  zsh -c "~/.config/bin/notekami"
+fi
 
 if [ "$selected" = "Songs" ]; then
     read -p "Search Songs: " query
@@ -52,5 +57,6 @@ elif [ "$selected" = "Movies" ]; then
     tmux neww -n "Movies" -t "$selected_name" zsh -c "lobster -q $quality $query"  
     tmux switch-client -t "$selected_name"
 fi
+
 
 
