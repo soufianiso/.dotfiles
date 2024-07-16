@@ -82,6 +82,7 @@ setopt share_history
 export HISTFILE=~/.zsh_history
 export PATH="$HOME/.tmuxifier/bin:$PATH"
 eval "$(tmuxifier init -)"
+eval "$(atuin init zsh)" 
 export BROWSER=firefox
 export EDITOR=nvim
 export HISTSIZE=10000000000
