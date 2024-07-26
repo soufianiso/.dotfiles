@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-selected=$(echo $'Songs\nYoutube\nAnime\nMovies\nNotes\nFkill\nRadio\nCalculator' | fzf --height=80% --layout=reverse  --border --margin=1 --padding=1)
+selected=$(echo $'Songs\nYoutube\nAnime\nMovies\nNotes\nFkill\nRadio\nCalculator\nPlayerControl' | fzf --height=80% --layout=reverse  --border --margin=1 --padding=1)
 if [[ -z $selected ]]; then
     exit 0
 fi
@@ -18,6 +18,9 @@ fi
 
 # fi
 
+if [ "$selected" = "PlayerControl" ]; then
+	tmux neww -n "playerCtl"  zsh -c "~/.config/bin/playercontrol"
+fi
 if [ "$selected" = "Calculator" ]; then
 	tmux neww -n "Calculator"  zsh -c "python3 -i"
 fi

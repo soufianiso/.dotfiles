@@ -114,17 +114,11 @@ set $ws8 " 8 "
 set $ws9 " 9 "
 
 # switch to workspace
-bindsym $mod+q workspace number $ws1 
 bindsym $mod+1 workspace number $ws1 
-bindsym $mod+w workspace number $ws2
 bindsym $mod+2 workspace number $ws2 
-bindsym $mod+e workspace number $ws3
 bindsym $mod+3 workspace number $ws3 
-bindsym $mod+r workspace number $ws4
 bindsym $mod+4 workspace number $ws4 
-bindsym $mod+t workspace number $ws5
 bindsym $mod+5 workspace number $ws5 
-bindsym $mod+y workspace number $ws6
 bindsym $mod+6 workspace number $ws6 
 bindsym $mod+7 workspace number $ws7
 bindsym $mod+8 workspace number $ws8
@@ -244,7 +238,7 @@ bindsym $mod+z exec togglemouse
 bindsym $mod+Shift+b exec xx.sh 
 
 exec --no-startup-id  /home/soufiane/.config/bin/wallpaper  calm
-exec --no-startup-id "firefox --new-window https://open.spotify.com"
+exec --no-startup-id "firefox --new-window http://server.lan"
 exec alacritty &
 # exec nitrogen  --restore & 
 exec_always --no-startup-id picom &
