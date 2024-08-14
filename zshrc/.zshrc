@@ -82,6 +82,8 @@ setopt inc_append_history
 setopt share_history
 export HISTFILE=~/.zsh_history
 export PATH="$HOME/.tmuxifier/bin:$PATH"
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
 eval "$(tmuxifier init -)"
 eval "$(atuin init zsh)" 
 export BROWSER=firefox

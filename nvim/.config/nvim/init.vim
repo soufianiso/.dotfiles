@@ -1,9 +1,11 @@
 call plug#begin()
 Plug 'psliwka/vim-smoothie',
+Plug 'kdheepak/lazygit.nvim'
 Plug 'j-hui/fidget.nvim',
 Plug 'folke/zen-mode.nvim',
 Plug 'nvim-telescope/telescope.nvim'  
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'prettier/vim-prettier', { 'do': 'yarn install --frozen-lockfile --production' }
 Plug 'ThePrimeagen/harpoon'
 Plug 'ThePrimeagen/git-worktree.nvim'
 Plug 'lukas-reineke/indent-blankline.nvim'
@@ -50,6 +52,7 @@ set clipboard=unnamedplus
 set cursorline
 set noswapfile
 let mapleader = " "
+
 map      <leader>' ysiw'<CR>
 map      <leader>" ysiw"<CR>
 map      <leader>) ysiw)<CR>
@@ -61,7 +64,7 @@ nnoremap <c-w> <cmd>vsplit<CR>
 nnoremap <leader>h <cmd>noh<CR>
 noremap <leader>o o<Esc>
 nnoremap <leader>O O<Esc>
-" Use ctrl-[hjkl] to select the active split!
+nnoremap <silent> <leader>g :LazyGit<CR>
 nnoremap <silent> <C-D> <cmd>call smoothie#do("\<C-D>zz") <CR>
 nnoremap <silent> <C-u> <cmd>call smoothie#do("\<C-u>zz") <CR>
 vnoremap <silent> <C-D> <cmd>call smoothie#do("\<C-D>zz") <CR> 
@@ -283,7 +286,6 @@ vim.keymap.set("n", "<leader><leader>", function() vim.cmd("so%") end)
 vim.keymap.set("n", "<leader>S", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set({ 'n', 'v' }, '<C-t>', '<Nop>', { silent = true })
-vim.keymap.set({"n"} , '<leader>g', ':Git<cr>', { silent = false })
 vim.keymap.set( 'i' , '<C-y>', '<Nop>', { silent = true })
 
 
@@ -339,7 +341,7 @@ vim.keymap.set("n", "<leader>zz", function()
 		      tmux = {enabled = true},
 			alacritty = {
 			  enabled = true,
-			  font = "10", -- font size
+			  font = "8", -- font size
 			},
 				
 			  
