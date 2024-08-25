@@ -1,10 +1,10 @@
 font:
   # Normal (roman) font face
   normal:
-    family: Roboto Mono
+    family: Roboto Mono  
     # The `style` can be specified to pick a specific face.
     #style: Regular
-  size: 9
+  size: 8 
 window:
   padding:
     x: 2 
@@ -14,10 +14,10 @@ colors:
   author: Chris Kempson
   primary:
     background: "#090300"
-    foreground: "#a5a2a2"
+    foreground: "#d4be98"
   cursor:
     text: "#090300"
-    cursor: "#a5a2a2"
+    cursor: "#d4be98"
   normal:
     black: "#090300"
     red: "#db2d20"
@@ -42,13 +42,14 @@ key_bindings:
   - { key: W, mods: Control|Shift, chars: "\x02%" } # split tmux window horizontally
   - { key: G, mods: Control, chars: "\x02g" } # cheat cheet
   - { key: K, mods: Control, chars: "\x02k" } # tmux sessionizer
-  - { key: T, mods: Control, chars: "\x02t" }
-  - { key: X, mods: Control, chars: "\x02x" } # toggle zoom state of the current tmux pane
-  - { key: Z, mods: Control, chars: "\x02z" } # toggle zoom state of the current tmux pane
-  - { key: S, mods: Control, chars: "\x02s" } # toggle zoom state of the current tmux pane
-  - { key: Tab, mods: Control, chars: "\x02n" } # switch to next tmux window
+  - { key: X, mods: Control, chars: "\x02x" }  
+  - { key: Z, mods: Control, chars: "\x02z" }  
+  - { key: H, mods: Control, chars: "\x02h" }  
+  - { key: S, mods: Control, chars: "\x02s" } # toggle sessions
+  - { key: A, mods: Control, chars: "\x02n" } # switch to next tmux window
   - { key: LBracket, mods: Control, chars: "\x02[" } # switch to next tmux window
-  - { key: Comma, mods: Control, chars: "\x02," } # rename the current tmux window
+  - { key: Comma, mods: Control, chars: "\x02," } # next tmux session
+  - { key: Period, mods: Control, chars: "\x02." } # previous tmux session
   - { key: Key1, mods: Control, chars: "\x021" } # select tmux window 1
   - { key: Key2, mods: Control, chars: "\x022" } #                ... 2
   - { key: Key3, mods: Control, chars: "\x023" } #                ... 3

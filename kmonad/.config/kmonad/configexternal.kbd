@@ -1,22 +1,26 @@
 (defcfg
   ;; For Linux
   input  (device-file "/dev/input/by-id/usb-DaKai_2.4G_RX-event-kbd")
-  output (uinput-sink "My KMonad output for external device ")
-
+  output (uinput-sink "My KMonad output")
   ;; This option tells KMonad to let non-configured keys act normal
   fallthrough true
+  allow-cmd true
 )
 
 (defalias
-	 ctl_f (tap-hold-next-release 200 f lctl)
+	 ctl_f (tap-hold-next-release 150 f lctl)
 	 ctl_caps (tap-next-release esc lctl)
-	 alt_d (tap-hold-next-release 200 d lalt)
-	 sft_a (tap-hold-next-release 200 a lsft)
-	 ctl_j (tap-hold-next-release 200 j rctl)
-	 alt_k (tap-hold-next-release 200 k ralt)
-	 sft_; (tap-hold-next-release 200 ; rsft)
+	 rmet_d (tap-hold-next-release 150 d lmet)
+	 sft_a (tap-hold-next-release 150 a lsft)
+	 ctl_j (tap-hold-next-release 150 j rctl)
+	 lmet_k (tap-hold-next-release 150 k lmet)
+	 sft_; (tap-hold-next-release 150 ; rsft)
+	 symbols_s (tap-hold-next 150 s (layer-toggle rsymbols) )
+	 symbols_l (tap-hold-next 150 l (layer-toggle lsymbols) )
 	 tmux C-b
-	 sleep A-S-. 
+	 sleep M-S-. 
+
+
 )
 
 (defsrc
@@ -26,16 +30,32 @@
   q    w    e    r    t    y    u    i    o    p	[	]   enter 
   caps a    s    d    f    g    h    j    k    l    ;	'	\
   lsft z    x    c    v    b    n    m    ,    .    / rsft
-       sys   lalt           spc            ralt  sys
+       lmet   lalt           spc            ralt  sys
 )
 
 (deflayer homerowmods
 
-  @sleep
-  1    2    3    4    5    6    7    8    9    0    -   =   sys
-  q    w    e    r    t    y    u    i    o    p	[	]   sys   
- @ctl_caps	@sft_a    s  @alt_d    @ctl_f    g   h   @ctl_j  @alt_k   l  @sft_;   '   \
+  @sleep 
+  1    2    3    4    5    6    7    8    9    0    -   =   _
+  q    w    e    r    t    y    u    i    o    p	[	]   _   
+ @ctl_caps	@sft_a    @symbols_s  @rmet_d    @ctl_f    g   h   @ctl_j  @lmet_k  @symbols_l   @sft_;   '   \
   sys  z    x    c    v    b    n    m    ,    .    / 	sys
-	  @tmux  bspc          spc          enter    _ 
+	  lalt  bspc          spc          enter    _ 
 )
- 
+(deflayer rsymbols
+  _  
+  _    _    _    _    _    _    _    _    _    _    _   _   _
+  _    _    _    _    _    _    _    \(    \)    _	_	_   _ 
+  _ _    _    _    _    _    _    _    {    }    _	_	_
+  _ _    _    _    _    _    _    _    [    ]    _ _
+       _   _           _            _  _
+   )
+
+(deflayer lsymbols
+  _  
+  _    _    _    _    _    _    _    _    _    _    _   _   _
+  !    @    #    $    _    _    _    \(    \)    _	_	_   _ 
+  _ %    ^    &    *    _    _    _    {    }    _	_	_
+  _ _    _    _    _    _    _    _    [    ]    _ _
+       _   _           _            _  _
+	   )

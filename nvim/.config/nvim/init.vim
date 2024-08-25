@@ -1,5 +1,6 @@
 call plug#begin()
 Plug 'psliwka/vim-smoothie',
+Plug 'yuratomo/w3m.vim',
 Plug 'j-hui/fidget.nvim',
 Plug 'folke/zen-mode.nvim',
 Plug 'nvim-telescope/telescope.nvim'  
@@ -303,12 +304,13 @@ local ui = require("harpoon.ui")
 vim.keymap.set('n', '<leader>gw',':Telescope git_worktree<cr>' , {})
 vim.keymap.set('n', '<leader>gc',":lua require('telescope').extensions.git_worktree.create_git_worktree()<cr>" , {})
 require("telescope").load_extension('fzf')
+require("telescope").load_extension('harpoon')
 require("telescope").load_extension("git_worktree")
 
 -- telescope Configuration
 local builtin = require('telescope.builtin')
-	vim.keymap.set('n', '<leader>sf', builtin.find_files, {})
-	vim.keymap.set('n', '<leader>sg', function() builtin.grep_string({ search = vim.fn.input("Grep > ") })
+	vim.keymap.set('n', '<leader>sf', builtin.find_files)
+	vim.keymap.set('n', '<leader>fw', function() builtin.grep_string({ search = vim.fn.input("Grep > ") })
 end)
 
 vim.keymap.set("n", "<leader>zz", function()
@@ -318,8 +320,13 @@ vim.keymap.set("n", "<leader>zz", function()
             options = {}
         },
 		plugins = {
-		      tmux = {enabled = true}
-
+		      tmux = {enabled = true},
+			alacritty = {
+			  enabled = true,
+			  font = "8", -- font size
+			},
+				
+			  
 		}
     }
     require("zen-mode").toggle()

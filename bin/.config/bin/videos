@@ -1,3 +1,56 @@
-#/usr/bin/bash
-mpv $(find ~/videos/ -name '*.mp4' | dmenu -p "Search: ")
+#!/usr/bin/env bash
+selected=$(echo $'Songs\nYoutube\nAnime\nMovies' | fzf --height=80% --layout=reverse  --border --margin=1 --padding=1)
+if [[ -z $selected ]]; then
+    exit 0
+fi
+
+# selected_name="player"
+
+# if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+
+#     tmux new-session -s $selected_name   
+# 	exit 0
+# fi
+
+
+# if ! tmux has-session -t=$selected_name 2> /dev/null; then
+#     tmux new-session -ds $selected_name 
+
+# fi
+
+if [ "$selected" = "Songs" ]; then
+    read -p "Search Songs: " query
+    if [ "$query" = "history" ]; then
+	tmux neww -n "Songs"  zsh -c "ytfzf -t -q -m --detach  --thumbnail-quality=medium $query "
+    else
+	tmux neww -n "Songs"  zsh -c "ytfzf -t  -m --detach  --thumbnail-quality=medium $query "
+    fi
+
+elif [ "$selected" = "Youtube" ]; then
+    read -p "Search YouTube: " query
+    if [ "$query" = "history" ]; then
+	tmux neww -n "YouTube"  zsh -c "ytfzf -t -q  --detach --thumbnail-quality=medium $query "
+    else
+	tmux neww -n "YouTube"  zsh -c "ytfzf -t --detach --thumbnail-quality=medium $query "
+    fi 
+
+elif [ "$selected" = "Anime" ]; then
+    read -p "Search Anime: " query
+    read -p "Set quality: " quality
+    if [ "$query" = "continue" ]; then
+	tmux neww -n "Anime" -t "$selected_name" zsh -c "ani-cli -c -q 720 "
+	tmux switch-client -t "$selected_name"
+    else
+	tmux neww -n "Anime" -t "$selected_name" zsh -c "ani-cli $query -q 720 "
+	tmux switch-client -t "$selected_name"
+    fi
+
+
+elif [ "$selected" = "Movies" ]; then
+    read -p "Search movies: " query
+    read -p "Set quality: " quality
+    tmux neww -n "Movies" -t "$selected_name" zsh -c "lobster -q $quality $query"  
+    tmux switch-client -t "$selected_name"
+fi
+
 
