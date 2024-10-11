@@ -22,16 +22,16 @@
 
 opacity = 1 
 blur = true
-padding.x = 10 
-padding.y = 5 
+padding.x =70
+padding.y = 4 
 
 decorations = "Full"
 decorations_theme_variant = "Dark" # "Dark"
 
 [font]
 
-normal = { family = "RobotoMono Nerd Font", style = "Normal" }
-size = 8 
+normal = { family = "Robotomono nerd font", style = "Normal" }
+size = 9 
 
 # Tip: for inspiration, look for values in the source code files of your favorite VS Code themes, and use the color picker in
 # Google to test colors before setting a value, or simply using an editor such as VS Code where colors are displayed in a 

@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# Default host
+HOST="localhost:8000"
+
+# Available actions
+ACTIONS=("Login" "Register")
+
+# Select action using fzf
+ACTION=$(printf "%s\n" "${ACTIONS[@]}" | fzf --prompt="Select action: ")
+
+# If no action selected, exit
+if [ -z "$ACTION" ]; then
+    echo "No action selected. Exiting."
+    exit 1
+fi
+
+# Set method and endpoint based on action
+if [ "$ACTION" == "Login" ]; then
+    METHOD="POST"
+    ENDPOINT="/login"
+elif [ "$ACTION" == "Register" ]; then
+    METHOD="POST"
+    ENDPOINT="/register"
+fi
+
+# Initialize payload variable
+PAYLOAD=""
+
+# Prompt for email and password
+read -p "Enter email: " EMAIL
+read -p "Enter password: " PASSWORD
+echo  # Add a newline after password input
+
+PAYLOAD="email=$EMAIL password=$PASSWORD"
+
+# Prompt for additional fields
+echo "Enter additional payload key-value pairs (if any)."
+echo "Press Enter after each pair. Press Ctrl+D when finished:"
+while IFS= read -r line; do
+    [ -n "$line" ] && PAYLOAD+=" $line"
+done
+
+# Construct the httpie command
+CMD="http --verbose $METHOD $HOST$ENDPOINT $PAYLOAD"
+
+# Execute the command
+echo "Executing: $CMD"
+eval "$CMD"

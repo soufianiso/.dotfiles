@@ -8,10 +8,10 @@
 )
 
 (defalias
-	 ctl_f (tap-hold-next-release 150 f lctl)
+	 ctl_f (tap-hold-next-release 150 f rctl)
 	 ctl_caps (tap-next-release esc lctl)
 	 rmet_d (tap-hold-next-release 150 d lmet)
-	 sft_a (tap-hold-next-release 150 a lsft)
+	 sft_a (tap-hold-next-release 150 a rsft)
 	 ctl_j (tap-hold-next-release 150 j rctl)
 	 lmet_k (tap-hold-next-release 150 k lmet)
 	 sft_; (tap-hold-next-release 150 ; rsft)

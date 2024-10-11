@@ -3,7 +3,7 @@
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-	selected=$((echo $'Home' && zoxide query -l && find ~/work/ -mindepth 1 -maxdepth 1 -type d ) |fzf --height=80% --layout=reverse  --border --margin=1 --padding=1
+    selected=$((echo $'Home' && zoxide query -l && find ~/work/ -mindepth 1 -maxdepth 1 -type d && echo ~/.dotfiles  )|fzf --height=80% --layout=reverse  --border --margin=1 --padding=1
 )
 fi
 

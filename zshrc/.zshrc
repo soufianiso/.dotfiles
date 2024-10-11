@@ -2,8 +2,8 @@
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 # From: https://gist.github.com/3239248
-source ~/powerlevel10k/powerlevel10k.zsh-theme
 
+source ~/powerlevel10k/powerlevel10k.zsh-theme
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
@@ -20,6 +20,8 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
       alias cat='bat'
       alias vdir='vdir --color=auto'
       alias grep='grep --color=auto'
+      alias lzd='lazydocker'
+      alias lzg='lazygit'
       alias fgrep='fgrep --color=auto'
       alias egrep='egrep --color=auto'
 	  alias f='cd $( ls -d */| fzf )'
@@ -28,7 +30,7 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 # some more ls aliases
     alias ll='ls -alF'
     alias v='nvim'
-    alias t='ss.sh'
+    alias t='tmux-s'
     alias la='ls -A'
     alias l='ls -CF'
     alias songs='ytfzf -t -m --detach --thumbnail-quality=medium'
@@ -37,6 +39,7 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
     alias tt='z -ls | fzf'
     alias l='ls -CF'
     alias mpv='mpv --force-window'
+    alias http='http --verbose'
     alias mouse='xinput set-prop 12 "Device Enabled" 0'
 [[ -r "/usr/share/z/z.sh" ]] && source /usr/share/z/z.sh
 # function run_fzf() {
@@ -81,10 +84,8 @@ preexec() {
 setopt inc_append_history
 setopt share_history
 export HISTFILE=~/.zsh_history
-export PATH="$HOME/.tmuxifier/bin:$PATH"
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
-eval "$(tmuxifier init -)"
 eval "$(atuin init zsh)" 
 export BROWSER=firefox
 export EDITOR=nvim

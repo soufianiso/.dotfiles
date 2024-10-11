@@ -246,7 +246,6 @@ exec nm-applet &
 exec blueman-applet &
 exec flameshot &
 exec firefox &
-exec thunderbird &
-exec spotube &
+exec spotify-launcher &
 
 bindsym $mod+Alt+v exec ~/.vim-anywhere/bin/run

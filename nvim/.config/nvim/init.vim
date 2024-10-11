@@ -65,11 +65,11 @@ nnoremap <leader>h <cmd>noh<CR>
 noremap <leader>o o<Esc>
 nnoremap <leader>O O<Esc>
 nnoremap <silent> <leader>g :LazyGit<CR>
-nnoremap <silent> <C-D> <cmd>call smoothie#do("\<C-D>zz") <CR>
-nnoremap <silent> <C-u> <cmd>call smoothie#do("\<C-u>zz") <CR>
-vnoremap <silent> <C-D> <cmd>call smoothie#do("\<C-D>zz") <CR> 
-vnoremap <silent> <C-u> <cmd>call smoothie#do("\<C-u>zz") <CR> 
-
+nnoremap <silent> <C-D> <cmd>call smoothie#do("\<C-D>zz^") <CR>
+nnoremap <silent> <C-u> <cmd>call smoothie#do("\<C-u>zz^") <CR>
+vnoremap <silent> <C-D> <cmd>call smoothie#do("\<C-D>zz^") <CR>
+vnoremap <silent> <C-u> <cmd>call smoothie#do("\<C-u>zz^") <CR>
+let g:smoothie_enabled = 1
 nmap <silent> <c-k> :wincmd k<CR>
 nmap <silent> <c-j> :wincmd j<CR>
 nmap <silent> <c-h> :wincmd h<CR>
@@ -86,7 +86,7 @@ lua << END
 vim.o.textwidth = 80
 vim.o.wrap = true
 vim.wo.signcolumn = 'yes'
-vim.o.breakindent = true
+vim.o.breakindent = false
 vim.g.gruvbox_telescope = false 
 vim.g.gruvbox_flat_style = "hard"
 vim.g.gruvbox_italic_comments = false
@@ -102,9 +102,17 @@ require('lualine').setup {
   },
   sections = {
     lualine_a = {''},
-	lualine_c = {{'filename',path=1}},
     lualine_b = {'', '', ''},
-    lualine_x = {'branch', 'diff', 'filetype'},
+	lualine_c = {{'filename',path=1}},
+    lualine_x = {'branch', 'diff','diagnostics', 'filetype'},
+    lualine_y = {'progress'},
+    lualine_z = {''}
+  },
+  inactive_sections = {
+    lualine_a = {''},
+    lualine_b = {'', '', ''},
+	lualine_c = {{'filename',path=1}},
+    lualine_x = {'branch', 'diff','diagnostics', 'filetype'},
     lualine_y = {'progress'},
     lualine_z = {''}
   },
@@ -125,7 +133,7 @@ lsp_zero.on_attach(function(client, bufnr)
   vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
   vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
   vim.keymap.set("n", "<leader>ca", function() vim.lsp.buf.code_action() end, opts)
-  vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+  vim.keymap.set("i", "<C-s>", function() vim.lsp.buf.signature_help() end, opts)
 end)
 
 -- [Mason configuration]
@@ -201,11 +209,6 @@ require'nvim-treesitter.configs'.setup {
       enable = true,
       lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
       keymaps = {
-                   ["a="] = { query = "@assignment.outer", desc = "Select outer part of an assignment" },
-            ["i="] = { query = "@assignment.inner", desc = "Select inner part of an assignment" },
-            ["l="] = { query = "@assignment.lhs", desc = "Select left hand side of an assignment" },
-            ["r="] = { query = "@assignment.rhs", desc = "Select right hand side of an assignment" },
-
             ["aa"] = { query = "@parameter.outer", desc = "Select outer part of a parameter/argument" },
             ["ia"] = { query = "@parameter.inner", desc = "Select inner part of a parameter/argument" },
 
@@ -220,6 +223,8 @@ require'nvim-treesitter.configs'.setup {
 
             ["ac"] = { query = "@class.outer", desc = "Select outer part of a class" },
             ["ic"] = { query = "@class.inner", desc = "Select inner part of a class" },-- You can use the capture groups defined in textobjects.scm
+	    ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
+     
 		
       },
 		
@@ -228,20 +233,20 @@ require'nvim-treesitter.configs'.setup {
       enable = true,
       set_jumps = true, -- whether to set jumps in the jumplist
       goto_next_start = {
-        [']m'] = '@function.outer',
-        [']]'] = '@class.outer',
+        [''] = '@class.outer',
+        [''] = '@function.outer',
       },
       goto_next_end = {
-        [']M'] = '@function.outer',
-        [']['] = '@class.outer',
+	['m'] = '@function.outer',
+        ['t'] = '@class.outer',
       },
       goto_previous_start = {
-        ['[m'] = '@function.outer',
-        ['[['] = '@class.outer',
+	['M'] = '@function.outer',
+        ['T'] = '@class.outer',
       },
       goto_previous_end = {
-        ['[M'] = '@function.outer',
-        ['[]'] = '@class.outer',
+        [''] = '@class.outer',
+        [''] = '@function.outer',
       },
       goto_next = {
         [']i'] = "@conditional.inner",
@@ -256,14 +261,14 @@ require'nvim-treesitter.configs'.setup {
 local ts_repeat_move = require("nvim-treesitter.textobjects.repeatable_move")
 
 -- vim way: ; goes to the direction you were moving.
-vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move)
-vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_opposite)
+-- vim.keymap.set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move)
+-- vim.keymap.set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_opposite)
 
 -- Optionally, make builtin f, F, t, T also repeatable with ; and ,
-vim.keymap.set({ "n", "x", "o" }, "f", ts_repeat_move.builtin_f)
-vim.keymap.set({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F)
-vim.keymap.set({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t)
-vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T)
+-- vim.keymap.set({ "n", "x", "o" }, "f", ts_repeat_move.builtin_f)
+-- vim.keymap.set({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F)
+-- vim.keymap.set({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t)
+-- vim.keymap.set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T)
 
 	
 -- [indent-blankline Configuration]
@@ -302,12 +307,13 @@ local ui = require("harpoon.ui")
 	vim.keymap.set("n", "<leader>6" , function() ui.nav_file(6) end)
 
 -- worktree Configuration--
-vim.keymap.set('n', '<leader>gw',':Telescope git_worktree<cr>' , {})
+vim.keymap.set('n', '<leader>gw',":lua require('telescope').extensions.git_worktree.git_worktrees()<cr>" , {})
 vim.keymap.set('n', '<leader>gc',":lua require('telescope').extensions.git_worktree.create_git_worktree()<cr>" , {})
+
+
 require("telescope").load_extension('fzf')
 require("telescope").load_extension('harpoon')
 require("telescope").load_extension("git_worktree")
-
 require('telescope').setup{
   defaults = {
     layout_strategy = 'horizontal',
@@ -334,7 +340,7 @@ end)
 vim.keymap.set("n", "<leader>zz", function()
     require("zen-mode").setup {
         window = {
-            width = 140,
+            width = 180,
             options = {}
         },
 		plugins = {

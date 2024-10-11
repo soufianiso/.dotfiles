@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-selected=$(echo $'Songs\nYoutube\nAnime\nMovies\nNotes\nFkill\nRadio\nCalculator\nPlayerControl' | fzf --height=80% --layout=reverse  --border --margin=1 --padding=1)
+selected=$(echo $'Client\nSongs\nYoutube\nAnime\nMovies\nNotes\nFkill\nRadio\nCalculator\nPlayerControl' | fzf --height=80% --layout=reverse  --border --margin=1 --padding=1)
 if [[ -z $selected ]]; then
     exit 0
 fi
@@ -21,6 +21,11 @@ fi
 if [ "$selected" = "PlayerControl" ]; then
 	tmux neww -n "playerCtl"  zsh -c "~/.config/bin/playercontrol"
 fi
+
+if [ "$selected" = "Client" ]; then
+	tmux neww -n "Client"  zsh -c "~/.config/bin/Client"
+fi
+
 if [ "$selected" = "Calculator" ]; then
 	tmux neww -n "Calculator"  zsh -c "python3 -i"
 fi
@@ -70,6 +75,4 @@ elif [ "$selected" = "Movies" ]; then
     tmux neww -n "Movies" -t "$selected_name" zsh -c "lobster -q $quality $query"  
     tmux switch-client -t "$selected_name"
 fi
-
-
 
